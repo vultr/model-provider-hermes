@@ -1,0 +1,21 @@
+[project]
+name = "vultr-model-provider-hermes"
+version = "0.0.1"
+description = "Vultr Inference for Hermes Agent: the live /v1/models catalog as a model provider"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Matt Harris", email = "mharris@vultr.com" }]
+maintainers = [{ name = "Matt Harris", email = "mharris@vultr.com" }]
+requires-python = ">=3.11"
+# Hermes installs these into its own venv when the plugin is installed.
+dependencies = [
+    "vultr-model-catalog @ git+https://github.com/vultr/model-catalog-python.git@v0.0.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

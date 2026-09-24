@@ -1,0 +1,10 @@
+name: vultr-provider
+kind: model-provider
+version: 0.0.1
+description: Vultr Inference, with the live /v1/models catalog
+author: Matt Harris <mharris@vultr.com>
+requires_env:
+  - name: VULTR_INFERENCE_API_KEY
+    description: Vultr Inference API key
+    url: https://console.vultr.com/inference/
+    secret: true
