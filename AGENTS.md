@@ -40,7 +40,7 @@ Human overview, hook table and install: `README.md`.
 
 - The tests must pass, against a real Hermes and on its Python:
   `uv run --no-project --python 3.11 --with pytest --with "<the dependency in pyproject.toml>" pytest -q`
-- `pyproject.toml` pins `vultr-model-catalog` to a commit. Bump the sha on
+- `pyproject.toml` pins `vultr-model-catalog` to a release. Bump the pin on
   purpose, and install it into Hermes's venv before testing
 - Hermes's behavior is in the installed tree, not in web summaries:
   `providers/base.py` (the hooks and their contracts),

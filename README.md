@@ -16,8 +16,8 @@ hermes plugins install https://github.com/vultr/model-provider-hermes.git --enab
 hermes chat --provider vultr -m glm-5.3 --reasoning high
 ```
 
-Hermes reads `pyproject.toml` and installs `vultr-model-catalog` into its own
-venv. `VULTR_INFERENCE_API_KEY` is asked for on install and kept in `~/.hermes/.env`.
+Hermes reads `pyproject.toml` and installs `vultr-model-catalog` from PyPI
+into its own venv. `VULTR_INFERENCE_API_KEY` is asked for on install and kept in `~/.hermes/.env`.
 
 A local checkout installs through a `file://` URL. Hermes clones it, so it
 gets the last commit, not uncommitted changes. A bare path does not work:
@@ -32,7 +32,7 @@ For development, link the working tree as a user plugin:
 ```bash
 ln -s "$PWD" ~/.hermes/plugins/model-providers/vultr
 uv pip install --python ~/.hermes/hermes-agent/venv/bin/python \
-  "vultr-model-catalog @ git+https://github.com/vultr/model-catalog-python.git"
+  "vultr-model-catalog==0.0.1"
 ```
 
 ## How it works
@@ -82,7 +82,7 @@ Python must match Hermes's venv:
 
 ```bash
 uv run --no-project --python 3.11 --with pytest \
-  --with "vultr-model-catalog @ git+https://github.com/vultr/model-catalog-python.git" \
+  --with "vultr-model-catalog==0.0.1" \
   pytest -q
 ```
 

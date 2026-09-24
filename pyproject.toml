@@ -9,7 +9,7 @@ maintainers = [{ name = "Matt Harris", email = "mharris@vultr.com" }]
 requires-python = ">=3.11"
 # Hermes installs these into its own venv when the plugin is installed.
 dependencies = [
-    "vultr-model-catalog @ git+https://github.com/vultr/model-catalog-python.git@v0.0.1",
+    "vultr-model-catalog==0.0.1",
 ]
 
 [dependency-groups]
