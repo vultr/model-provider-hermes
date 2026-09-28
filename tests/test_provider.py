@@ -8,7 +8,7 @@ def test_the_profile_registers_under_its_name_and_alias(plugin):
     assert plugin.vultr.env_vars[0] == "VULTR_INFERENCE_API_KEY"
 
 
-def test_fetch_models_offers_ready_chat_models_with_a_context_window(plugin):
+def test_fetch_models_offers_ready_chat_models_with_tools_and_a_context_window(plugin):
     assert plugin.vultr.fetch_models() == ["glm-5.3", "small", "always-thinks"]
 
 

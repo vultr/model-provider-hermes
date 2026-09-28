@@ -32,7 +32,7 @@ def _offline(url: str, headers: Any, timeout: float) -> bytes:
 
 
 def is_usable(model: CatalogModel) -> bool:
-    return model.is_chat and model.is_ready and model.context_window is not None
+    return model.is_agent
 
 
 class VultrProfile(ProviderProfile):

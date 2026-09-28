@@ -47,6 +47,7 @@ PAYLOAD = {
         document("reranker", output_modalities=[{"type": "rerank", "supported_parameters": {}}]),
         document("unready", is_ready=False),
         document("no-context", context=None),
+        document("no-tools", output_modalities=[{"type": "text", "supported_parameters": {}}]),
     ]
 }
 

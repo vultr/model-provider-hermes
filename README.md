@@ -42,7 +42,7 @@ uv pip install --python ~/.hermes/hermes-agent/venv/bin/python \
 
 | Hook | What it does |
 | --- | --- |
-| `fetch_models` | The ids of usable models: text output, `is_ready`, a context window. The catalog is public, so no key is sent |
+| `fetch_models` | The ids of usable models: text output, `is_ready`, tool calling, a context window (the catalog's `is_agent`). The catalog is public, so no key is sent |
 | `build_api_kwargs_extras` | Top-level `reasoning_effort`, clamped to the model's `supported_efforts` with Hermes's own `clamp_effort` (nearest weaker level). Reasoning disabled sends `none`, unless reasoning is mandatory. A model without a `reasoning` block gets no reasoning fields |
 | `supported_reasoning_efforts` | The model's list; `()` for a model that cannot reason; `None` without an allowlist or while cold. Never touches the network, as the base class requires |
 | `get_max_tokens` | The published output limit, only when it is below the context window |
