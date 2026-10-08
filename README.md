@@ -32,7 +32,7 @@ For development, link the working tree as a user plugin:
 ```bash
 ln -s "$PWD" ~/.hermes/plugins/model-providers/vultr
 uv pip install --python ~/.hermes/hermes-agent/venv/bin/python \
-  "vultr-model-catalog==0.0.1"
+  "vultr-model-catalog==0.0.3"
 ```
 
 ## How it works
@@ -82,7 +82,7 @@ Python must match Hermes's venv:
 
 ```bash
 uv run --no-project --python 3.11 --with pytest \
-  --with "vultr-model-catalog==0.0.1" \
+  --with "vultr-model-catalog==0.0.3" \
   pytest -q
 ```
 
