@@ -1,6 +1,6 @@
 name: vultr-provider
 kind: model-provider
-version: 0.0.1
+version: 0.0.2
 description: Vultr Inference, with the live /v1/models catalog
 author: Matt Harris <mharris@vultr.com>
 requires_env:

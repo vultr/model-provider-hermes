@@ -1,6 +1,6 @@
 [project]
 name = "vultr-model-provider-hermes"
-version = "0.0.1"
+version = "0.0.2"
 description = "Vultr Inference for Hermes Agent: the live /v1/models catalog as a model provider"
 readme = "README.md"
 license = "MIT"
