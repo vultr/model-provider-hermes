@@ -10,6 +10,7 @@ windows, output limits and reasoning efforts.
 import logging
 import os
 import time
+import tomllib
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +26,20 @@ API_KEY_ENV = "VULTR_INFERENCE_API_KEY"
 BASE_URL_ENV = "VULTR_INFERENCE_BASE_URL"
 COLD_TIMEOUT = 3.0
 RETRY_SECONDS = 60.0
+
+
+def _user_agent() -> str:
+    """Goes in front of the catalog library's own User-Agent. Hermes installs the plugin as a
+    clone of this repo, so pyproject.toml sits next to this file."""
+    try:
+        with open(Path(__file__).with_name("pyproject.toml"), "rb") as file:
+            version = tomllib.load(file)["project"]["version"]
+    except (OSError, KeyError, tomllib.TOMLDecodeError):
+        version = "unknown"
+    return f"vultr-model-provider-hermes/{version}"
+
+
+USER_AGENT = _user_agent()
 
 
 def _offline(url: str, headers: Any, timeout: float) -> bytes:
@@ -46,6 +61,7 @@ class VultrProfile(ProviderProfile):
             return load_catalog(
                 base_url=base_url,
                 timeout=timeout,
+                user_agent=USER_AGENT,
                 cache_path=self._cache_path(),
                 # Offline: any cached catalog is fresh enough and the network is never tried.
                 max_age=float("inf") if offline else 0,

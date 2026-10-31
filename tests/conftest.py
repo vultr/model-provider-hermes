@@ -56,9 +56,11 @@ class Network:
     def __init__(self):
         self.calls = 0
         self.down = False
+        self.headers = None
 
     def __call__(self, url, headers, timeout):
         self.calls += 1
+        self.headers = headers
         if self.down:
             raise OSError("network unreachable")
         return json.dumps(PAYLOAD).encode()

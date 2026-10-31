@@ -1,4 +1,9 @@
+import tomllib
+from pathlib import Path
+
 from providers import get_provider_profile
+
+PYPROJECT = Path(__file__).parent.parent / "pyproject.toml"
 
 
 def test_the_profile_registers_under_its_name_and_alias(plugin):
@@ -10,6 +15,13 @@ def test_the_profile_registers_under_its_name_and_alias(plugin):
 
 def test_fetch_models_offers_ready_chat_models_with_tools_and_a_context_window(plugin):
     assert plugin.vultr.fetch_models() == ["glm-5.3", "small", "always-thinks"]
+
+
+def test_the_catalog_request_names_the_plugin_and_its_version(plugin, network):
+    version = tomllib.loads(PYPROJECT.read_text())["project"]["version"]
+    plugin.vultr.fetch_models()
+    agent = network.headers["User-Agent"]
+    assert agent.startswith(f"vultr-model-provider-hermes/{version} vultr-model-catalog/"), agent
 
 
 def test_fetch_models_returns_none_without_network_or_cache(plugin, network):
