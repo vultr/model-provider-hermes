@@ -36,10 +36,23 @@ Human overview, hook table and install: `README.md`.
   decisions in TypeScript. Keep the rules for usable models and for reasoning
   the same across all four
 
+## Validation
+
+Fast (inner loop): the full command below with a narrower selection
+- `... pytest -x -k <name>` - one test in `tests/test_provider.py`
+- `... pytest --lf -x` - only what failed last run
+
+Full (once, before calling a change complete):
+- The tests must pass, against a real Hermes and on its Python:
+  `uv run --no-project --python 3.11 --with pytest --with "<the dependency in pyproject.toml>" pytest -q`.
+  Without a Hermes install (`HERMES_AGENT_DIR`, default
+  `~/.hermes/hermes-agent`) the suite skips, which is not a pass
+
+Heavy (never in the inner loop; run once at the end in the background):
+- the install path in a throwaway `HERMES_HOME` (below)
+
 ## Working here
 
-- The tests must pass, against a real Hermes and on its Python:
-  `uv run --no-project --python 3.11 --with pytest --with "<the dependency in pyproject.toml>" pytest -q`
 - `pyproject.toml` pins `vultr-model-catalog` to a release. Bump the pin on
   purpose, and install it into Hermes's venv before testing
 - Hermes's behavior is in the installed tree, not in web summaries:
