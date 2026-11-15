@@ -54,10 +54,3 @@ Human overview, hook table and install: `README.md`.
   launcher ignores `PYTHONPATH`: the library has to be in Hermes's venv
 - The Hermes plugin catalog wants a public repo with tagged releases and no
   self-updating code. Fetching a model list at runtime is data, not code
-- Put lasting explanation in the README, not in the source. If a comment is
-  needed, make it short. Docs describe current behavior, not history
-- Write commit messages to the Conventional Commits spec
-- No em dashes or en dashes anywhere: prose, comments, commit messages and
-  docs use plain hyphens, `·`, or `:`
-- No AI trailers on commits (`Co-Authored-By`, `Generated with`, ...)
-- Never force-push; never rewrite pushed history
