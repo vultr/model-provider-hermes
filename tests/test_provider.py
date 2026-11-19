@@ -24,6 +24,27 @@ def test_the_catalog_request_names_the_plugin_and_its_version(plugin, network):
     assert agent.startswith(f"vultr-model-provider-hermes/{version} vultr-model-catalog/"), agent
 
 
+def _key_sent(network):
+    return {name.lower(): value for name, value in dict(network.headers).items()}.get("authorization")
+
+
+# The gateway answers the catalog for the key that asks, so the read carries the key.
+def test_the_catalog_request_carries_the_key_hermes_passes_else_the_environments(plugin, network, monkeypatch):
+    plugin.vultr.fetch_models()
+    assert _key_sent(network) is None
+    monkeypatch.setenv("VULTR_INFERENCE_API_KEY", "env-key")
+    plugin.vultr.fetch_models()
+    assert _key_sent(network) == "Bearer env-key"
+    plugin.vultr.fetch_models(api_key="passed-key")
+    assert _key_sent(network) == "Bearer passed-key"
+
+
+def test_a_cold_first_request_reads_the_catalog_with_the_environments_key(plugin, network, monkeypatch):
+    monkeypatch.setenv("VULTR_INFERENCE_API_KEY", "env-key")
+    plugin.vultr.build_api_kwargs_extras(reasoning_config={"effort": "low"}, model="glm-5.3")
+    assert _key_sent(network) == "Bearer env-key"
+
+
 def test_fetch_models_returns_none_without_network_or_cache(plugin, network):
     network.down = True
     assert plugin.vultr.fetch_models() is None

@@ -76,6 +76,7 @@ def plugin(tmp_path, monkeypatch, network):
     """A fresh import of the plugin with an empty HERMES_HOME and a fake network."""
     monkeypatch.setenv("HERMES_HOME", str(tmp_path))
     monkeypatch.delenv("VULTR_INFERENCE_BASE_URL", raising=False)
+    monkeypatch.delenv("VULTR_INFERENCE_API_KEY", raising=False)
     spec = importlib.util.spec_from_file_location("vultr_provider_under_test", ROOT / "__init__.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

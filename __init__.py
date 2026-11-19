@@ -56,10 +56,15 @@ class VultrProfile(ProviderProfile):
     def _cache_path(self) -> Path:
         return Path(get_hermes_home()) / "cache" / "vultr-model-catalog.json"
 
-    def _load(self, *, base_url: str, timeout: float, offline: bool = False) -> Catalog | None:
+    def _load(
+        self, *, base_url: str, timeout: float, offline: bool = False, api_key: str | None = None
+    ) -> Catalog | None:
+        """The catalog asks for no key. One that is set goes with the read, so the list is the
+        one that key gets: the key Hermes hands over, else the environment's."""
         try:
             return load_catalog(
                 base_url=base_url,
+                api_key=(api_key or os.environ.get(API_KEY_ENV) or "").strip() or None,
                 timeout=timeout,
                 user_agent=USER_AGENT,
                 cache_path=self._cache_path(),
@@ -93,9 +98,8 @@ class VultrProfile(ProviderProfile):
     def fetch_models(
         self, *, api_key: str | None = None, base_url: str | None = None, timeout: float = 8.0
     ) -> list[str] | None:
-        # The catalog is public, so api_key is not sent.
         effective = (base_url or "").strip().rstrip("/") or self.base_url
-        catalog = self._load(base_url=effective, timeout=timeout)
+        catalog = self._load(base_url=effective, timeout=timeout, api_key=api_key)
         if catalog is None:
             return None
         self._remember(catalog, effective)
